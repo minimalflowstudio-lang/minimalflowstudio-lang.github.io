@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Reporter du Temps — Confidentialité & Conditions</title>
+<style>
+  :root{
+    --bg:#faf7f0; --panel:#ffffff; --ink:#1c1a15; --muted:#6b6455;
+    --line:#e7e0d1; --gold:#b8860b; --gold-soft:#e9c766; --accent:#8a6d10;
+    --maxw:44rem;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14120d; --panel:#1d1a13; --ink:#f2ecdd; --muted:#a99f88;
+           --line:#332e22; --gold:#e2b53c; --gold-soft:#7a5f13; --accent:#e2b53c; }
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6;
+    padding:0 1.25rem 5rem; }
+  .inner{ max-width:var(--maxw); margin:0 auto; }
+  header.top{ text-align:center; padding:4.5rem 0 2.5rem; }
+  .badge{ display:inline-block; font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--accent); border:1px solid var(--gold-soft); border-radius:999px;
+    padding:.32rem .85rem; margin-bottom:1.4rem; font-weight:600; }
+  h1{ font-family:Georgia,"Times New Roman",serif; font-weight:700; font-size:clamp(2rem,6vw,3rem);
+    margin:0 0 .5rem; letter-spacing:-.01em;
+    background:linear-gradient(100deg,var(--gold),var(--gold-soft)); -webkit-background-clip:text;
+    background-clip:text; color:transparent; }
+  .tag{ color:var(--muted); font-size:1.05rem; margin:0 auto; max-width:32rem; }
+  nav.toc{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin:2rem 0 0; }
+  nav.toc a{ font-size:.85rem; color:var(--ink); text-decoration:none; border:1px solid var(--line);
+    background:var(--panel); border-radius:8px; padding:.4rem .8rem; }
+  nav.toc a:hover{ border-color:var(--gold); }
+  section.card{ background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:2rem clamp(1.1rem,4vw,2.2rem); margin-top:1.5rem; scroll-margin-top:1.5rem; }
+  h2{ font-family:Georgia,serif; font-size:1.5rem; margin:0 0 .3rem; }
+  h2 .num{ color:var(--gold); font-size:.9rem; font-family:"Segoe UI",sans-serif; font-weight:600;
+    letter-spacing:.1em; display:block; margin-bottom:.35rem; text-transform:uppercase; }
+  .updated{ color:var(--muted); font-size:.82rem; margin:.2rem 0 1.3rem; }
+  p{ margin:.8rem 0; }
+  ul{ margin:.8rem 0; padding-left:1.2rem; }
+  li{ margin:.5rem 0; }
+  a.mail{ color:var(--accent); font-weight:600; }
+  .foot{ text-align:center; color:var(--muted); font-size:.82rem; margin-top:2.5rem; }
+  .kicker{ color:var(--gold); font-weight:600; }
+</style>
+</head>
+<body>
+  <div class="inner">
+    <header class="top">
+      <span class="badge">🎥 Reconstitutions créées avec l'IA ⏳</span>
+      <h1>Le Reporter du Temps</h1>
+      <p class="tag">Une chaîne éducative qui recrée l'histoire des grands monuments du monde,
+        filmés comme s'ils étaient en direct pendant leur construction.</p>
+      <nav class="toc">
+        <a href="#apropos">À propos</a>
+        <a href="#confidentialite">Confidentialité</a>
+        <a href="#conditions">Conditions d'utilisation</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="card" id="apropos">
+      <h2><span class="num">À propos</span>Le projet</h2>
+      <p><span class="kicker">« Le Reporter du Temps »</span> est une série de vidéos courtes,
+        éducatives et grand public. Un reporter intemporel raconte la construction des monuments
+        célèbres — la Tour Eiffel, les pyramides, le Colisée… — comme un reportage en direct de l'époque.</p>
+      <p>Toutes les images et vidéos sont des <strong>reconstitutions créées avec l'intelligence
+        artificielle</strong>, clairement signalées comme telles. Le contenu est publié sur Instagram,
+        TikTok et YouTube.</p>
+    </section>
+
+    <section class="card" id="confidentialite">
+      <h2><span class="num">Confidentialité</span>Politique de confidentialité</h2>
+      <p class="updated">Dernière mise à jour : 11 juillet 2026</p>
+      <p>L'application « Reporter du Temps » a une seule fonction : <strong>publier automatiquement
+        les vidéos de la chaîne sur le compte de son propre créateur</strong>, via les interfaces
+        officielles (API) d'Instagram et de TikTok.</p>
+      <ul>
+        <li>Elle ne collecte, ne stocke et ne partage <strong>aucune donnée personnelle d'autres
+          utilisateurs</strong>.</li>
+        <li>Les seules informations utilisées sont les <strong>jetons d'accès du compte du créateur</strong>,
+          conservés uniquement en local sur son ordinateur et jamais transmis à un tiers.</li>
+        <li>Aucune donnée n'est <strong>vendue, louée ou communiquée</strong> à qui que ce soit.</li>
+        <li>Les vidéos sont hébergées temporairement le temps de leur transfert vers la plateforme,
+          puis le lien expire automatiquement.</li>
+        <li>Pour toute demande relative à tes données, écris-nous (voir Contact).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="conditions">
+      <h2><span class="num">Conditions</span>Conditions d'utilisation</h2>
+      <p class="updated">Dernière mise à jour : 11 juillet 2026</p>
+      <ul>
+        <li>Le contenu (vidéos, images, textes) est produit par le créateur de la chaîne et
+          <strong>signalé comme reconstitution générée par IA</strong>.</li>
+        <li>L'outil de publication est à <strong>usage personnel</strong> du créateur ; il ne s'adresse
+          pas à des tiers et ne propose aucun service payant.</li>
+        <li>Le contenu respecte les règles des plateformes (Instagram, TikTok, YouTube) et le label
+          « Contenu généré par IA » est appliqué à chaque publication.</li>
+        <li>Les monuments présentés sont du domaine public ; les décors sont générés par IA.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="contact">
+      <h2><span class="num">Contact</span>Nous écrire</h2>
+      <p>Une question sur la chaîne, la confidentialité ou les conditions ?
+        Écris à <a class="mail" href="mailto:minimalflowstudio@gmail.com">minimalflowstudio@gmail.com</a>.</p>
+    </section>
+
+    <p class="foot">© 2026 Le Reporter du Temps · @lereporterdutemps · Reconstitutions créées avec l'IA</p>
+  </div>
+</body>
+</html>
