@@ -138,11 +138,15 @@
     journalA.textContent = "Autorisation refusée : " + params.get("error");
   }
 
+  // Clé publique de l'application (client_key). Ce n'est PAS un secret : elle circule
+  // en clair dans l'adresse d'autorisation. Le client_secret, lui, ne quitte jamais
+  // l'outil local. Le paramètre ?k= permet de basculer sur l'app de bac à sable.
+  const CLE_PUBLIQUE = "awj0p0u9o0yp4ixn";
+
   document.getElementById("btnConnexion").addEventListener("click", () => {
     journalA.textContent = "Ouverture de la page d'autorisation TikTok…";
-    // L'outil local fournit la clé publique et l'état ; il complète ensuite l'échange.
     location.href = "https://www.tiktok.com/v2/auth/authorize/"
-      + "?client_key=" + (params.get("k") || "")
+      + "?client_key=" + (params.get("k") || CLE_PUBLIQUE)
       + "&scope=user.info.basic,video.upload,video.publish"
       + "&response_type=code"
       + "&redirect_uri=" + encodeURIComponent(location.origin + location.pathname)
