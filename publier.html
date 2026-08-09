@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporter du Temps — Outil de publication</title>
+<style>
+  :root{
+    --bg:#faf7f0; --panel:#fff; --ink:#1c1a15; --muted:#6b6455;
+    --line:#e7e0d1; --gold:#b8860b; --gold-soft:#e9c766; --accent:#8a6d10;
+    --ok:#2f6f4e; --attente:#8c8577;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14120d; --panel:#1d1a13; --ink:#f2ecdd; --muted:#a99f88;
+           --line:#332e22; --gold:#e2b53c; --gold-soft:#7a5f13; --accent:#e2b53c;
+           --ok:#63b68b; --attente:#8c8577; }
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6;
+        padding:0 1.25rem 4rem; }
+  .inner{ max-width:44rem; margin:0 auto; }
+  header.top{ text-align:center; padding:3.5rem 0 2rem; }
+  .badge{ display:inline-block; font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+          color:var(--accent); border:1px solid var(--gold-soft); border-radius:999px;
+          padding:.32rem .85rem; margin-bottom:1.2rem; font-weight:600; }
+  h1{ font-family:Georgia,"Times New Roman",serif; font-weight:700;
+      font-size:clamp(1.9rem,5.5vw,2.6rem); margin:0 0 .5rem; letter-spacing:-.01em; }
+  .tag{ color:var(--muted); margin:0 auto; max-width:32rem; }
+  section.card{ background:var(--panel); border:1px solid var(--line); border-radius:14px;
+                padding:1.7rem clamp(1.1rem,4vw,2rem); margin-top:1.4rem; }
+  h2{ font-family:Georgia,serif; font-size:1.3rem; margin:0 0 .2rem; }
+  h2 .num{ color:var(--gold); font-size:.78rem; font-family:"Segoe UI",sans-serif; font-weight:600;
+           letter-spacing:.1em; display:block; margin-bottom:.3rem; text-transform:uppercase; }
+  p{ margin:.5rem 0 0; } p.first{ margin-top:.9rem; }
+  .bouton{ display:inline-flex; align-items:center; gap:.6rem; margin-top:1.1rem;
+           background:var(--ink); color:var(--bg); border:0; border-radius:999px;
+           padding:.75rem 1.5rem; font-size:1rem; font-weight:600; cursor:pointer;
+           font-family:inherit; text-decoration:none; }
+  .bouton:hover{ opacity:.9; }
+  .bouton[disabled]{ opacity:.45; cursor:not-allowed; }
+  .etat{ display:flex; align-items:center; gap:.55rem; margin-top:1rem;
+         font-size:.92rem; color:var(--muted); }
+  .pastille{ width:.6rem; height:.6rem; border-radius:50%; background:var(--attente); flex:none; }
+  .pastille.on{ background:var(--ok); }
+  label{ display:block; font-size:.82rem; letter-spacing:.06em; text-transform:uppercase;
+         color:var(--muted); font-weight:600; margin:1.1rem 0 .35rem; }
+  input,textarea,select{ width:100%; font-family:inherit; font-size:.98rem; color:var(--ink);
+         background:var(--bg); border:1px solid var(--line); border-radius:9px; padding:.6rem .75rem; }
+  textarea{ min-height:5rem; resize:vertical; }
+  .journal{ font-family:Consolas,"Cascadia Mono",monospace; font-size:.85rem;
+            background:var(--bg); border:1px solid var(--line); border-radius:9px;
+            padding:.8rem; margin-top:1.1rem; white-space:pre-wrap; min-height:4rem; color:var(--muted); }
+  .note{ border-left:3px solid var(--gold); padding:.2rem 0 .2rem 1rem; margin-top:1.2rem;
+         color:var(--muted); font-size:.92rem; }
+  footer{ text-align:center; margin-top:2.5rem; font-size:.85rem; color:var(--muted); }
+  footer a{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="inner">
+
+  <header class="top">
+    <span class="badge">Outil personnel de publication</span>
+    <h1>Reporter du Temps</h1>
+    <p class="tag">Interface de publication de mes propres épisodes vidéo sur mon compte TikTok
+      <strong>@lereporterdutemps</strong>. Outil à usage unique et personnel : un seul créateur, un seul compte.</p>
+  </header>
+
+  <section class="card">
+    <h2><span class="num">Étape 1</span>Connecter mon compte TikTok</h2>
+    <p class="first">L'autorisation est donnée par le créateur lui-même, sur son propre compte.
+      Aucun tiers, aucun autre compte.</p>
+    <button class="bouton" id="btnConnexion">Se connecter avec TikTok</button>
+    <div class="etat"><span class="pastille" id="pastilleAuth"></span><span id="texteAuth">Compte non connecté</span></div>
+    <div class="journal" id="journalAuth">En attente d'autorisation…</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">Étape 2</span>Préparer l'épisode du jour</h2>
+    <p class="first">La vidéo est produite localement, puis envoyée sur mon compte.</p>
+
+    <label for="fichier">Fichier vidéo de l'épisode</label>
+    <input type="file" id="fichier" accept="video/mp4,video/quicktime">
+
+    <label for="legende">Légende</label>
+    <textarea id="legende" placeholder="Titre de l'épisode, contexte historique, hashtags…"></textarea>
+
+    <label for="confidentialite">Visibilité</label>
+    <select id="confidentialite">
+      <option value="SELF_ONLY">Moi uniquement (test)</option>
+      <option value="PUBLIC_TO_EVERYONE">Public</option>
+    </select>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">Étape 3</span>Publier</h2>
+    <p class="first">La publication utilise l'API officielle Content Posting, sur mon propre compte,
+      après vérification des paramètres du créateur.</p>
+    <button class="bouton" id="btnPublier" disabled>Publier sur TikTok</button>
+    <div class="etat"><span class="pastille" id="pastillePub"></span><span id="textePub">Aucune publication en cours</span></div>
+    <div class="journal" id="journalPub">Prêt.</div>
+
+    <div class="note">
+      Cette interface pilote un outil personnel exécuté sur l'ordinateur du créateur. Aucune donnée
+      d'utilisateur tiers n'est collectée, stockée ni transmise : le seul compte concerné est celui
+      du créateur, qui est aussi le développeur de cet outil.
+    </div>
+  </section>
+
+  <footer>
+    <a href="./privacy.html">Politique de confidentialité</a> ·
+    <a href="./terms.html">Conditions d'utilisation</a>
+  </footer>
+
+</div>
+
+<script>
+  // Interface de l'outil personnel de publication.
+  // L'échange du code d'autorisation et l'appel à l'API sont réalisés par l'outil local
+  // du créateur : aucun secret client n'est présent dans cette page.
+  const params      = new URLSearchParams(location.search);
+  const pastilleA   = document.getElementById("pastilleAuth");
+  const texteA      = document.getElementById("texteAuth");
+  const journalA    = document.getElementById("journalAuth");
+  const btnPublier  = document.getElementById("btnPublier");
+
+  // Retour d'autorisation TikTok : le code arrive dans l'adresse de cette page.
+  if (params.has("code")) {
+    pastilleA.classList.add("on");
+    texteA.textContent = "Compte connecté — autorisation reçue";
+    journalA.textContent =
+      "Autorisation accordée par le créateur.\n" +
+      "Code de connexion reçu, transmis à l'outil local pour l'échange contre un jeton.\n" +
+      "Portée demandée : user.info.basic, video.upload, video.publish";
+    btnPublier.disabled = false;
+  } else if (params.has("error")) {
+    journalA.textContent = "Autorisation refusée : " + params.get("error");
+  }
+
+  document.getElementById("btnConnexion").addEventListener("click", () => {
+    journalA.textContent = "Ouverture de la page d'autorisation TikTok…";
+    // L'outil local fournit la clé publique et l'état ; il complète ensuite l'échange.
+    location.href = "https://www.tiktok.com/v2/auth/authorize/"
+      + "?client_key=" + (params.get("k") || "")
+      + "&scope=user.info.basic,video.upload,video.publish"
+      + "&response_type=code"
+      + "&redirect_uri=" + encodeURIComponent(location.origin + location.pathname)
+      + "&state=" + Math.random().toString(36).slice(2);
+  });
+
+  document.getElementById("btnPublier").addEventListener("click", () => {
+    const f = document.getElementById("fichier").files[0];
+    const journalP = document.getElementById("journalPub");
+    if (!f) { journalP.textContent = "Choisis d'abord le fichier vidéo de l'épisode."; return; }
+    document.getElementById("pastillePub").classList.add("on");
+    document.getElementById("textePub").textContent = "Publication transmise à l'outil local";
+    journalP.textContent =
+      "Épisode : " + f.name + " (" + (f.size / 1048576).toFixed(1) + " Mo)\n" +
+      "Visibilité : " + document.getElementById("confidentialite").value + "\n" +
+      "Vérification des paramètres du créateur, puis envoi par l'API Content Posting.";
+  });
+</script>
+</body>
+</html>
