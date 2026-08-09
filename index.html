@@ -111,5 +111,17 @@
 
     <p class="foot">© 2026 Le Reporter du Temps · @lereporterdutemps · Reconstitutions créées avec l'IA</p>
   </div>
+
+<script>
+  // Retour d'autorisation TikTok : cette racine est l'unique adresse de retour déclarée
+  // dans le portail développeur. On réachemine vers l'outil de publication en conservant
+  // les paramètres, plutôt que de laisser le code d'autorisation s'afficher ici.
+  (function () {
+    var q = location.search;
+    if (q && (q.indexOf("code=") !== -1 || q.indexOf("error=") !== -1)) {
+      location.replace("./publier.html" + q);
+    }
+  })();
+</script>
 </body>
 </html>

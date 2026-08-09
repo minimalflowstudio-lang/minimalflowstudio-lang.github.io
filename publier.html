@@ -158,7 +158,10 @@
       + "?client_key=" + (params.get("k") || CLE_PUBLIQUE)
       + "&scope=" + (params.get("s") || PORTEE)
       + "&response_type=code"
-      + "&redirect_uri=" + encodeURIComponent(location.origin + location.pathname)
+      // On renvoie vers la RACINE du site : c'est la seule adresse de retour déclarée
+      // dans le portail TikTok, et une adresse non déclarée fait échouer l'autorisation
+      // (erreur « redirect_uri » du 09/08). La racine réachemine ensuite vers cette page.
+      + "&redirect_uri=" + encodeURIComponent(location.origin + "/")
       + "&state=" + Math.random().toString(36).slice(2);
   });
 
