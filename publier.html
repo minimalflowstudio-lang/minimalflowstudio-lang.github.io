@@ -138,16 +138,24 @@
     journalA.textContent = "Autorisation refusée : " + params.get("error");
   }
 
-  // Clé publique de l'application (client_key). Ce n'est PAS un secret : elle circule
-  // en clair dans l'adresse d'autorisation. Le client_secret, lui, ne quitte jamais
-  // l'outil local. Le paramètre ?k= permet de basculer sur l'app de bac à sable.
-  const CLE_PUBLIQUE = "awj0p0u9o0yp4ixn";
+  // Clé publique (client_key) — ce n'est PAS un secret : elle circule en clair dans
+  // l'adresse d'autorisation. Le client_secret, lui, ne quitte jamais l'outil local.
+  //
+  // On utilise l'environnement de BAC À SABLE, comme TikTok l'exige pour une app
+  // jamais approuvée : « you are required to use a sandbox environment to demonstrate
+  // the integration ». La clé de production ne donne accès à aucun scope tant que
+  // l'app est en brouillon — c'était la cause de l'erreur du 09/08.
+  const CLE_PUBLIQUE = "sbawwwcmftopwvoy5t";
+
+  // Scopes réellement accordés au bac à sable. En demander un de plus (video.publish
+  // tant que Direct Post n'est pas activé) fait échouer toute l'autorisation.
+  const PORTEE = "user.info.basic,video.upload";
 
   document.getElementById("btnConnexion").addEventListener("click", () => {
     journalA.textContent = "Ouverture de la page d'autorisation TikTok…";
     location.href = "https://www.tiktok.com/v2/auth/authorize/"
       + "?client_key=" + (params.get("k") || CLE_PUBLIQUE)
-      + "&scope=user.info.basic,video.upload,video.publish"
+      + "&scope=" + (params.get("s") || PORTEE)
       + "&response_type=code"
       + "&redirect_uri=" + encodeURIComponent(location.origin + location.pathname)
       + "&state=" + Math.random().toString(36).slice(2);
