@@ -147,9 +147,10 @@
   // l'app est en brouillon — c'était la cause de l'erreur du 09/08.
   const CLE_PUBLIQUE = "sbawwwcmftopwvoy5t";
 
-  // Scopes réellement accordés au bac à sable. En demander un de plus (video.publish
-  // tant que Direct Post n'est pas activé) fait échouer toute l'autorisation.
-  const PORTEE = "user.info.basic,video.upload";
+  // Scopes réellement accordés au bac à sable. En demander un seul de plus fait
+  // échouer TOUTE l'autorisation — d'où l'erreur du 09/08 après-midi.
+  // « Direct Post » activé le 09/08 à 15h40 : video.publish est désormais accordé.
+  const PORTEE = "user.info.basic,video.upload,video.publish";
 
   document.getElementById("btnConnexion").addEventListener("click", () => {
     journalA.textContent = "Ouverture de la page d'autorisation TikTok…";
